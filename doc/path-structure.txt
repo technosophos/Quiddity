@@ -1,0 +1,33 @@
+
+// The main index entry
+{ 
+  "_id" : ObjectId("4baa718fd863a04e89c7f28e"), 
+  "path" : "index", 
+  "request" : "index", 
+  "code" : 200 
+}
+
+// Literal path with literal params.
+// This will invoke request 'about-us' with context param someParam set to 'This is a string'.
+{ 
+  "_id" : ObjectId("4baa71bfd863a04e89c7f28f"), 
+  "path" : "article/about-us", 
+  "request" : "aboutUs", 
+  "params" : { "someParam" : "Some data" }, 
+  "code" : 200 
+}
+
+// Wildcards:
+// This uses wildcards in the path, and placeholders in the params.
+// Placeholders are associated with the path URL structure, so in this case, 
+// 1 is 'article' and 2 is the actual value in '*'. So if this was called with the path
+// article/tornados, then the request 'articleHandler' would be invoked with the context
+// 'name' set to 'tornados'.
+{ 
+  "_id" : ObjectId("4baa799bd863a04e89c7f293"), 
+  "path" : "article/*", 
+  "request" : "articleHandler", 
+  "params" : { "someParam" : "%1$s" }, 
+  "code" : 200 
+}
+

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<project name="Quiddity" 
+  description=""
+  basedir="." 
+  default="main"
+>
+<!--
+Fortissimo project build file.
+
+This file contains all of the definitions for building a Fortissimo-based 
+project using Phing. To view the list of supported commands, use the command:
+
+$ phing -l
+
+Copyright (c) 2009, Matt Butcher, some rights reserved.
+-->
+
+  <target name="info" description="Information on using the QueryPath Phing build.">
+    <echo>
+To build this project, run
+
+phing build
+
+To list all of the commands that you can perform on a Fortissimo project, run
+
+phing -l
+
+Creating a New Project
+======================
+If you want to create a new Fortissimo project, and you have the Fortissimo
+toolchain installed, simply run this command:
+
+fff MyProjectName
+    </echo>
+  </target>
+
+  <!--
+  =============================================================================
+  GLOBAL PROPERTIES
+  =============================================================================
+  -->
+  <property name="project" value="Quiddity"/>
+  <property name="srcdir" value="./src"/>
+  <property name="testdir" value="./test"/>
+  <property name="builddir" value="./bin/build"/>
+  <property name="docsdir" value="./docs"/>
+  <property name="packagedir" value="./dist"/>
+  <property name="appdir" value="{$srcdir}/includes"/>
+
+  <!--
+  =============================================================================
+  FORTISSIMO TASKS
+  =============================================================================
+  -->
+  <taskdef classname="lib.task.FortissimoExplainTask" name="fortissimoexplain"/>
+  <taskdef classname="lib.task.FortissimoRunRequestTask" name="fortissimorequest"/>
+
+  <!--
+  =============================================================================
+  FILE SETS
+  =============================================================================
+  -->
+
+  <!-- Files that must be included in the release -->
+  <fileset id="licensefiles" dir=".">
+    <include name="README"/>
+    <include name="INSTALL"/>
+  </fileset>
+
+  <!-- Files to be treated as source code -->
+  <fileset id="sourcecode" dir="${srcdir}">
+    <include name="**/*" />
+  </fileset>
+  
+  <!-- App-specific Files to be treated as source code -->
+  <fileset id="appcode" dir="$appdir">
+    <include name="**/*" />
+  </fileset>
+  
+  <!--
+  =============================================================================
+  COMMANDS (BUILD TARGETS)
+  =============================================================================
+  -->
+
+  <!-- Main Target -->
+  <target name="main" description="main target">
+      
+  </target>
+  
+  <target name="explain" description="Explain all of the requests.">
+    <fortissimoexplain/>
+  </target>
+  <target name="getDefault" description="Run the default request">
+    <fortissimorequest request="default"/>
+  </target>
+  <target name="lint" description="Check syntax of source.">
+    <phplint>
+      <fileset refid="sourcecode" />
+    </phplint>
+  </target>
+</project>
